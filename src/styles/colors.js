@@ -1,0 +1,10 @@
+export const white = '#fff';
+export const black = '#000';
+export const orange = '#fa7443';
+export const green = '#92D050';
+export const inputBottomBorderColor = '#4d4d4d';
+export const inputPlaceholderColor = '#7d7d7d';
+export const tintColor = '#00A4F1';
+export const buttonColor = '#007AFF';
+export const active = tintColor
+export const inActive = orange

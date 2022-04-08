@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1054171572071",
+    "firebase_url": "https://pmc-student-portal.firebaseio.com",
+    "project_id": "pmc-student-portal",
+    "storage_bucket": "pmc-student-portal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1054171572071:android:c6936c410f0b3a747431c2",
+        "android_client_info": {
+          "package_name": "com.pmcstudent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1054171572071-em32haklo6dpt4dbmrrn2h7ovktal9v3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pmcstudent",
+            "certificate_hash": "fad6b0c30954224fd6dc7a0a5d38e7598f26ab23"
+          }
+        },
+        {
+          "client_id": "1054171572071-qgjm3l20pdd71np60iaoq8ndvla5c0bb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5nSgP8Mkh9grD2e53wnp3IQJlkJySBo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1054171572071-qgjm3l20pdd71np60iaoq8ndvla5c0bb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
