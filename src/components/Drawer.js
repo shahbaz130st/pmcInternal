@@ -30,6 +30,7 @@ export default class Drawer extends Component {
         this.state = {
             loading: false,
             isShowCourseTab: false,
+            isShowCallMakeUp: false,
             isShowRefferalTab: false,
             isShowInvoiceTab: false,
             accounts: [],
@@ -57,7 +58,11 @@ export default class Drawer extends Component {
                 onPress={() => {
                     if (title == 'MyCourse') {
                         this.setState({ isShowCourseTab: !this.state.isShowCourseTab })
-                    } else if (routeName == 'RegisterToWatchDigitalLesson') {
+                    }
+                    else if (routeName == "CallMakeup") {
+                        this.setState({ isShowCallMakeUp: !this.state.isShowCallMakeUp })
+                    }
+                    else if (routeName == 'RegisterToWatchDigitalLesson') {
                         Linking.openURL('http://www.edutv.sg')
                         // Linking.openURL('https://www.pmc.sg/pmc-digital/')
                     } else {
@@ -67,7 +72,7 @@ export default class Drawer extends Component {
                             /*if (title == 'Invoice and Payment') {
                                 this.setState({isShowInvoiceTab: !this.state.isShowInvoiceTab})
                             } else*/ {
-                                this.setState({ isShowInvoiceTab: false, isShowRefferalTab: false, isShowCourseTab: false })
+                                this.setState({ isShowInvoiceTab: false, isShowRefferalTab: false, isShowCourseTab: false,isShowCallMakeUp:false })
                                 this.props.navigation.navigate(routeName)
                             }
                         }
@@ -109,6 +114,30 @@ export default class Drawer extends Component {
                         require('../assets/icons/blue_dot.png'),
                         "Calender"
                     )}
+                    {/* {this.renderDrawerItem(
+                        "RequestForMakeup",
+                        require('../assets/icons/blue_dot.png'),
+                        "Request for makeup"
+                    )}
+                    {this.renderDrawerItem(
+                        "MakeupHistory",
+                        require('../assets/icons/blue_dot.png'),
+                        "Edit makeup"
+                    )}
+                    {this.renderDrawerItem(
+                        "RegisterToWatchDigitalLesson",
+                        require('../assets/icons/blue_dot.png'),
+                        "Register To Watch Digital Lesson"
+                    )} */}
+                </View>
+            </View>
+        )
+    }
+
+    renderCallMakeupMenuItem() {
+        return (
+            <View style={{ width: '90%', alignItems: 'flex-end', }}>
+                <View style={styles.courseGroupStyle}>
                     {this.renderDrawerItem(
                         "RequestForMakeup",
                         require('../assets/icons/blue_dot.png'),
@@ -272,7 +301,7 @@ export default class Drawer extends Component {
                                             marginBottom: 8
                                         },
                                         account.active && {
-                                            borderColor: account.active ? 'green': 'yellow',
+                                            borderColor: account.active ? 'green' : 'yellow',
                                             borderWidth: 2,
                                             backgroundColor: 'yellow',
                                         }
@@ -330,6 +359,12 @@ export default class Drawer extends Component {
                             "MyCourse"
                         )}
                         {this.state.isShowCourseTab && this.renderCourseMenuItem()}
+                        {this.renderDrawerItem(
+                            "CallMakeup",
+                            require('../assets/icons/phone.jpeg'),
+                            "Makeup"
+                        )}
+                        {this.state.isShowCallMakeUp && this.renderCallMakeupMenuItem()}
 
                         {this.renderDrawerItem(
                             "Referral",

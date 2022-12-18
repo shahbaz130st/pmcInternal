@@ -21,27 +21,28 @@
         android:name=".MainActivity"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-        android:windowSoftInputMode="adjustResize">
+        android:windowSoftInputMode="adjustResize"
+        android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
              <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
         </intent-filter>
       </activity>
-      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+      <activity android:exported="true" android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
-        <service android:name="io.invertase.firebase.messaging.RNFirebaseMessagingService">
+        <service android:exported="true" android:name="io.invertase.firebase.messaging.RNFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service android:name="io.invertase.firebase.messaging.RNFirebaseInstanceIdService">
+        <service  android:exported="true" android:name="io.invertase.firebase.messaging.RNFirebaseInstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
-        <service android:name="io.invertase.firebase.messaging.RNFirebaseBackgroundMessagingService" />
+        <service android:exported="true" android:name="io.invertase.firebase.messaging.RNFirebaseBackgroundMessagingService" />
     </application>
 
 </manifest>

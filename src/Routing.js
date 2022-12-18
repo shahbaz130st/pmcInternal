@@ -1,9 +1,9 @@
 import React from 'react';
-import {StyleSheet, Image} from "react-native";
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
-import {createBottomTabNavigator} from 'react-navigation-tabs';
-import {createDrawerNavigator} from 'react-navigation-drawer';
+import { StyleSheet, Image } from "react-native";
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 
 import Splash from './modules/Auth/Splash';
 
@@ -26,6 +26,7 @@ import MakeupHistory from './modules/Course/MakeupHistory';
 
 //Referral And Reward Module
 import MyReferralCode from './modules/ReferralAndReward/MyReferralCode';
+import MyReferralCodeWebViewDisplay from "./modules/ReferralAndReward/MyReferralCodeWebViewDisplay";
 import MyRewardPoint from './modules/ReferralAndReward/MyRewardPoint';
 import PointTransaction from './modules/ReferralAndReward/PointTransaction';
 
@@ -67,7 +68,7 @@ const AppNavigatorDrawerStack = createStackNavigator(
 
 const AppDrawerNavigator = createDrawerNavigator(
     {
-        mainApp:{
+        mainApp: {
             screen: AppNavigatorDrawerStack,
         }
     },
@@ -101,12 +102,13 @@ const AppNavigator = createStackNavigator(
 
         //Referral And Reward Module
         MyReferralCode: MyReferralCode,
+        MyReferralCodeWebViewDisplay: MyReferralCodeWebViewDisplay,
         MyRewardPoint: MyRewardPoint,
         PointTransaction: PointTransaction,
 
         //Academic Result Module
         AcademicResult: AcademicResult,
-        CoursesResult:CoursesResult,
+        CoursesResult: CoursesResult,
 
         //Invoice And Payment Module
         Invoice: Invoice,
@@ -122,7 +124,7 @@ const AppNavigator = createStackNavigator(
         //Settings Module
         Settings: Settings,
 
-        'AttendanceDetails':AttendanceDetails
+        'AttendanceDetails': AttendanceDetails
     },
     {
         initialRouteName: 'Splash',

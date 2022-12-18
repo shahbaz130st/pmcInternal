@@ -25,7 +25,8 @@ export default class Dashboard extends Component {
         this.state = {
             loading: false,
             pendingDues: "",
-            referralPoints: 0
+            referralPoints: 0,
+            headingText: ""
         }
     }
 
@@ -44,6 +45,8 @@ export default class Dashboard extends Component {
             },
             body: formdata
         }).then(response => response.json()).then(response => {
+            console.log("refrel error reward", response)
+            this.setState({ headingText: response?.message })
             if (response.data?.student_point?.total_point) {
                 this.setState({
                     referralPoints: response.data?.student_point?.total_point || 0
@@ -111,7 +114,7 @@ export default class Dashboard extends Component {
                     style={{ flex: 1, width: "100%" }}>
                     <View style={{ height: '100%', justifyContent: 'flex-start', alignItems: 'center' }}>
                         <View style={styles.groupStyle}>
-                            <Text style={{ color: "red", fontSize: 16, textAlign: 'center', }}>{'Join PMC Combo (Physics + Maths + Chemistry) to enjoy additional discount.'}</Text>
+                            <Text style={{ color: "red", fontSize: 16, textAlign: 'center', }}>{this.state.headingText/* 'Join PMC Combo (Physics + Maths + Chemistry) to enjoy additional discount.' */}</Text>
                         </View>
                         <TouchableOpacity style={{
                             width: "90%",
@@ -141,7 +144,7 @@ export default class Dashboard extends Component {
                                 marginHorizontal: 10
                             }}>
                                 {'Do well in your class quiz and '}
-                                
+
                                 <Text
                                     style={{
                                         color: "#0080ff",

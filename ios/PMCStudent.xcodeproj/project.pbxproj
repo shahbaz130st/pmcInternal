@@ -729,7 +729,7 @@
 				DEVELOPMENT_TEAM = LDTL934U64;
 				INFOPLIST_FILE = PMCStudent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 16;
+				MARKETING_VERSION = 17;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -752,7 +752,7 @@
 				DEVELOPMENT_TEAM = LDTL934U64;
 				INFOPLIST_FILE = PMCStudent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 16;
+				MARKETING_VERSION = 17;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

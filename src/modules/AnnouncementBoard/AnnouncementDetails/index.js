@@ -222,7 +222,7 @@ export default class AnnouncementDetails extends Component {
                                         originWhitelist={['']}
                                         style={[
                                             {
-                                                backgroundColor: "#F2F2F2",
+                                                // backgroundColor: "#F2F2F2",
                                                 flex: 1,
                                                 flexGrow: 1,
                                                 // height: screenHeight

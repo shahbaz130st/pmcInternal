@@ -64,9 +64,8 @@ export default class Announcements extends Component {
         }).then(response => response.json())
             .then(response => {
                 this.setState({ loading: false })
-                console.log("AnnouncementScreenApi-->", "-" + JSON.stringify(response));
+                console.log("AnnouncementScreenApi-->", "-" + JSON.stringify(response.data.announcement_list));
                 if (response.code === 200) {
-
                     this.setState({
                         announcementsList: response.data.announcement_list,
                         userId: response.data.student.id
@@ -102,7 +101,13 @@ export default class Announcements extends Component {
                 onPress={() => {
                     this.props.navigation.navigate("AnnouncementDetails", { selectedItem: item.id, userId: this.state.userId })
                 }}>
+                {
+                    item?.id !== item?.pinned &&
+                    <Image source={require("../../../assets/icons/star.png")} style={{ height: 15, width: 15, tintColor: "red",marginRight:10 }} />
+                }
                 <View style={{ width: '80%' }}>
+
+
                     <Text style={{ textTransform: 'uppercase', fontSize: sizes.large, fontWeight: 'bold' }}>
                         {item.title}
                     </Text>

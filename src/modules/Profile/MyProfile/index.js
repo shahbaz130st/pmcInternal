@@ -147,6 +147,7 @@ export default class MyProfile extends Component {
                             flexDirection: "column",
                             alignItems: "center",
                             margin: 20,
+                            paddingVertical:20,
                             borderRadius: 20
                         }}>
 
@@ -188,7 +189,7 @@ export default class MyProfile extends Component {
                             })}
                             {this.renderField({
                                 name: "Address",
-                                value: this.state.profileData.address
+                                value: this.state.profileData.address+", Unit_No : "+this.state.profileData.unit_no+" , Postal_Code : "+ this.state.profileData.postal_code
                             })}
                             {this.renderField({
                                 name: "Postal Code",

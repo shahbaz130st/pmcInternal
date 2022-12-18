@@ -51,7 +51,7 @@ export default class MyReferralCode extends Component {
                     this.setState({
                         myRefferralCode: response.data,
                         msg: "My refferal code for PMC.SG is " + response.data,
-                        description: response.message
+                        description: response?.message?.referall_message
                     })
                 } else {
                     Alert.alert("Server Error!", "Please try again.")
@@ -100,7 +100,7 @@ export default class MyReferralCode extends Component {
                                     originWhitelist={['*']}
                                     style={{
                                         width: '100%',
-                                        backgroundColor: "#F2F2F2",
+                                        // backgroundColor: "#F2F2F2",
                                         height: 250
                                     }}
                                     useWebKit={true}
@@ -111,6 +111,11 @@ export default class MyReferralCode extends Component {
                                         html: '<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body><p>' + this.state.description + '</p></body></html>',
                                         baseUrl: ''
                                     }} />
+                                <TouchableOpacity style={{ alignItems: "flex-end" }} onPress={()=>{this.props.navigation.navigate("MyReferralCodeWebViewDisplay")}}>
+                                    <Text>
+                                        Read more
+                                    </Text>
+                                </TouchableOpacity>
                             </View>
                         )}
 

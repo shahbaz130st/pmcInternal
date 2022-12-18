@@ -110,7 +110,7 @@ PODS:
   - Permission-PhotoLibrary (2.2.2):
     - RNPermissions
   - PromisesObjC (1.2.12)
-  - Protobuf (3.19.4)
+  - Protobuf (3.21.12)
   - RCTRequired (0.61.5)
   - RCTTypeSafety (0.61.5):
     - FBLazyVector (= 0.61.5)
@@ -292,8 +292,8 @@ PODS:
     - React
   - react-native-safe-area-context (0.6.4):
     - React
-  - react-native-view-shot (3.1.2):
-    - React
+  - react-native-view-shot (3.5.0):
+    - React-Core
   - react-native-webview (8.2.1):
     - React
   - React-RCTActionSheet (0.61.5):
@@ -348,7 +348,7 @@ PODS:
     - Fabric
     - Firebase/Core
     - React
-  - RNFS (2.19.0):
+  - RNFS (2.20.0):
     - React-Core
   - RNGestureHandler (1.10.3):
     - React-Core
@@ -559,7 +559,7 @@ SPEC CHECKSUMS:
   Permission-Notifications: 9c6b5cc4f0e6599e9fc3395b77cebddc48f1be41
   Permission-PhotoLibrary: 8227a6ed9f6a971537afe63742d54f5f23a38fe2
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
-  Protobuf: 235750e4696ff59fb07d949a9dbbc92b3c0700fe
+  Protobuf: 120350fc38646e2dedc26f49ecba778184ea1de2
   RCTRequired: b153add4da6e7dbc44aebf93f3cf4fcae392ddf1
   RCTTypeSafety: 9aa1b91d7f9310fc6eadc3cf95126ffe818af320
   React: b6a59ef847b2b40bb6e0180a97d0ca716969ac78
@@ -574,7 +574,7 @@ SPEC CHECKSUMS:
   react-native-netinfo: 30fb89fa913c342be82a887b56e96be6d71201dd
   react-native-preference: 545cb5efd2a1925b5221d08109c875f27b538378
   react-native-safe-area-context: 52342d2d80ea8faadd0ffa76d83b6051f20c5329
-  react-native-view-shot: 4475fde003fe8a210053d1f98fb9e06c1d834e1c
+  react-native-view-shot: 792829857bbb23a9c8acdad9a640554bdee397a3
   react-native-webview: 160ac8d6bb974e2933f2de6bb7464a8e934ff31d
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
@@ -591,13 +591,13 @@ SPEC CHECKSUMS:
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNCPicker: 914b557e20b3b8317b084aca9ff4b4edb95f61e4
   RNFirebase: 37daa9a346d070f9f6ee1f3b4aaf4c8e3b1d5d1c
-  RNFS: fc610f78fdf8bfc89a9e5cc2f898519f4dba1002
+  RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNPermissions: 5df468064df661a4c8c017e2791ce90d7695eea5
   RNReanimated: b2ab0b693dddd2339bd2f300e770f6302d2e960c
   RNScreens: 6053a007667bea81a69087caadf103bba04c032e
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: d6ad41112879164781881057d8edcdab64586113
+PODFILE CHECKSUM: 87d2322ccbb4c5eea60072dab1d5f9f061c3b998
 
 COCOAPODS: 1.11.3
