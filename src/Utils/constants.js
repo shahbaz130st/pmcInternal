@@ -1,9 +1,7 @@
-//export const Base_url = 'http://v56.appcrates.co/';
 export const Base_url = 'https://www.thephysicscafe.com/';
 const api = "admin/api/"
 
 export const constants = {
-    //image_Url:Base_url+'student_app/admin/',
     image_Url:Base_url+'admin/',
     Login: Base_url + api + "login",
     announcement: Base_url + api + "announcement",

@@ -41,9 +41,7 @@ export default class Invoice extends Component {
     }
 
     componentDidMount() {
-        // this.props.navigation.state.params.JSON_ListView_Clicked_Item
         const { params } = this.props.navigation.state;
-        console.log(this.props.navigation)
         this.getInvoices(params.invoiceId);
     }
 
@@ -157,10 +155,6 @@ export default class Invoice extends Component {
     }
 
     render() {
-        //let data=this.state.invoicesDetail;
-        //console.log("data::"+JSON.stringify(data));
-        //let instructions=data.fuck;
-        //console.log("data2::"+JSON.stringify(instructions));
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
                 <Header
@@ -427,7 +421,6 @@ export default class Invoice extends Component {
                             </View>
                             {this.state.invoice_header.remark != undefined &&
                                 <View style={{
-                                    // flex: 1
                                     width: "90%",
                                     backgroundColor: "#F3F2EF",
                                     marginTop: 10,
@@ -448,16 +441,12 @@ export default class Invoice extends Component {
                                         onNavigationStateChange={(event) => {
                                             if (event.url !== "www.google.com") {
                                                 if (Platform.OS === "android") {
-                                                    // this.webview.stopLoading();
-                                                    //Linking.openURL(event.url);
                                                 } else {
-                                                    //this.webview.stopLoading();
                                                     Linking.openURL(event.url);
                                                 }
 
                                             }
                                         }}
-                                        //onShouldStartLoadWithRequest={this.openExternalLink}
                                         source={{
                                             html: '<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body><p>' + this.state.invoice_header.remark + '</p></body></html>',
                                             baseUrl: ''
@@ -715,14 +704,6 @@ export default class Invoice extends Component {
                             </View>
 
                         </View>
-                        {/*<WebView
-                        originWhitelist={['*']}
-                        style={{width:'100%',height:500,
-                            backgroundColor: "black",}}
-                        useWebKit={true}
-                        onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-                        //onShouldStartLoadWithRequest={this.openExternalLink}
-                        source={{ html: '<html><head><meta name="viewport"></head><body>'+this.state.description+'</body></html>' }} />*/}
                     </View>
                 </ScrollView>
                 <ProgressBar visible={this.state.loading} />
@@ -752,7 +733,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         borderLeftWidth: 5,
         alignItems: 'center',
-        // justifyContent: 'center',
         width: '94%'
     },
     buttonStyle: {

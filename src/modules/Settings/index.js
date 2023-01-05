@@ -8,7 +8,6 @@ import {
     ScrollView,
     SafeAreaView,
 } from 'react-native';
-// import Preference from 'react-native-preference';
 import * as colors from '../../styles/colors';
 import * as sizes from '../../styles/sizes';
 import commonStyles from '../../styles/commonStyles';

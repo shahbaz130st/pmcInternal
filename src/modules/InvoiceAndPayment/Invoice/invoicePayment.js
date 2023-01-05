@@ -8,7 +8,6 @@ import {
     ScrollView,Linking,
     SafeAreaView, FlatList, Dimensions,
 } from 'react-native';
-// import Preference from 'react-native-preference';
 import * as colors from '../../../styles/colors';
 import * as sizes from '../../../styles/sizes';
 import commonStyles from '../../../styles/commonStyles';
@@ -31,13 +30,11 @@ export default class Invoice extends Component {
     }
     componentDidMount() {
         this.showWebView()
-        // this.props.navigation.state.params.JSON_ListView_Clicked_Item
     }
     showWebView(){
         this.setState({ loading: true })
         let formdata = new FormData();
         formdata.append("std_id", Preference.get('user_id'))
-        console.log(Preference.get('user_id'),constants.get_paynow_instruction)
         fetch(constants.get_paynow_instruction, {
             method: 'POST',
             headers: {
@@ -67,10 +64,6 @@ export default class Invoice extends Component {
     }
 
     render() {
-        //let data=this.state.invoicesDetail;
-        //console.log("data::"+JSON.stringify(data));
-        //let instructions=data.fuck;
-        //console.log("data2::"+JSON.stringify(instructions));
         return (
             <SafeAreaView style={{flex: 1, backgroundColor: colors.white}}>
                 <Header
@@ -91,9 +84,6 @@ export default class Invoice extends Component {
                             style={{
                                 flexGrow:1,
                                 width: '100%',
-                                //backgroundColor: "#F2F2F2",
-                                //backgroundColor: "pink",
-                               //height:400
                             }}
                             useWebKit={true}
                             onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
@@ -102,53 +92,16 @@ export default class Invoice extends Component {
                                 if (event.url !== "www.google.com") {
                                     if(Platform.OS==="android")
                                     {
-                                        // this.webview.stopLoading();
-                                        //Linking.openURL(event.url);
                                     }else{
-                                            //this.webview.stopLoading();
                                             Linking.openURL(event.url);
                                     }
                                 
                                 }
                             }}
-                            //onShouldStartLoadWithRequest={this.openExternalLink}
                             source={{
                                 html: '<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body><p>' + this.state.msg + '</p></body></html>',
                                 baseUrl: ''
                             }}/>
-
-
-                            {/* <Text style={{fontSize: 15, color: "#000",marginBottom:20,fontWeight:"bold",}}>{"METHOD 1 & METHOD 2 are preferred \n"}</Text>
-                            <Text style={{fontWeight:"bold",fontSize:15}}>{"Method 1"}</Text><Text>{"(PAY BY INTERNET TRANSFER – PAYNOW - Recommended)\n" +
-                            "Step 1: Login to your internet banking\n" +
-                            "Step 2: Pay the outstanding amount to mobile number 91001235.\n" +
-                            "Step 3: Include student’s name, school and level and subject of student clearly in remarks.\n" +
-                            "Step 4: Print screen confirmation page and email to admin@pmc.sg. \n" +
-                            "All steps must be completed so that the finance will need the information to submit payment manually to your account. \n" +
-                        "\n" }</Text>
-                            <Text style={{fontWeight:"bold",fontSize:15}}>{"Method 2"}</Text><Text>{"(PAY BY INTERNET TRANSFER – MANUAL)\n" +
-                            "Step 1: Login to your internet banking\n" +
-                            "Step 2: Pay the outstanding amount to OCBC Savings Account 687-399253-001 - The Physics Cafe Ptd Ltd - Bank Code (7339) - Branch Code (687)\n" +
-                            "Step 3: Include student’s name, school and level and subject of student clearly in remarks.\n" +
-                            "Step 4: Print screen confirmation page and email to admin@pmc.sg. \n" +
-                            "All steps must be completed so that the finance will need the information to submit payment manually to your account. \n" +
-                            "\n" }</Text> */}
-                       {/* <Text style={{fontWeight:"bold",fontSize:15}}>{"Method 3"}</Text><Text>{"(PAY BY CASH OR CHEQUE BY STUDENT 45 MINS BEFORE LESSON)\n" +
-                            "*Gently reminder to whom making payment by CHEQUE, kindly screen shoot the cheque details and whatsapp to mobile number 91001235, 7 days before the lesson, to be verified by our Accounting Department.\n" +
-                            "Step 1: Arrive 45 minutes before the lesson starts to make payment by cash or cheque. \n" +
-                            "Step 2: Parents should not submit the cheque on behalf of the student as the school only allow entry to registered students.\n" +
-                        "\n" }</Text>
-                        <Text style={{fontWeight:"bold",fontSize:15}}>{"Method 4"}</Text><Text>{"(MAIL THE CHEQUE)\n" +
-                            "*Gently reminder: Please be kindly screen shoot the cheque details and whatsapp to mobile number 91001235, before you posting the cheque, to be verified by our Accounting Department.\n" +
-                            "Prepare the cheque according to the invoice and post the cheque to Admission Office at 10 Eunos Road 8 Singapore Post Centre #01-207 S(408600).\n" +
-                            "\n" +
-                            "Note: \n" +
-                            "\n" +
-                            "1)All payment or notifications of payment must be received before the first lesson of invoice so that the student will be able to mark their attendance via the automated system. \n" +
-                            "\n" +
-                            "2)E-Receipt will be issued within 7 working days upon receiving payment. Kindly contact us if receipt is not issued.\n" +
-                            "\n" +
-                            "3) There are no NETS or Credit Card terminal at the centres."}</Text>*/}
                     </View>
                 
                 <ProgressBar visible={this.state.loading}/>
@@ -178,7 +131,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         borderLeftWidth: 5,
         alignItems: 'center',
-        // justifyContent: 'center',
         width: '94%'
     },
     buttonStyle: {

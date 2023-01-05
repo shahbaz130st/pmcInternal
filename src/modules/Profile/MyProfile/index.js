@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     StyleSheet,
     Image,
@@ -8,14 +8,13 @@ import {
     ScrollView,
     SafeAreaView,
 } from 'react-native';
-// import Preference from 'react-native-preference';
 import * as colors from '../../../styles/colors';
 import * as sizes from '../../../styles/sizes';
 import commonStyles from '../../../styles/commonStyles';
 import Header from '../../../components/Header';
 import AvatarComponent from "../../../components/AvatarComponent";
 import Preference from "react-native-preference";
-import {constants} from "../../../Utils/constants";
+import { constants } from "../../../Utils/constants";
 import ProgressBar from "../../../components/ProgressBar";
 
 export default class MyProfile extends Component {
@@ -29,7 +28,7 @@ export default class MyProfile extends Component {
     }
 
     componentDidMount() {
-        const {navigation} = this.props;
+        const { navigation } = this.props;
         this.focusListener = navigation.addListener("didFocus", payload => {
             this.getProfile();
         });
@@ -37,7 +36,7 @@ export default class MyProfile extends Component {
     }
 
     getProfile() {
-        this.setState({loading: true})
+        this.setState({ loading: true })
         let formdata = new FormData();
         formdata.append("student_id", Preference.get('user_id'))
         fetch(constants.profile, {
@@ -48,8 +47,7 @@ export default class MyProfile extends Component {
             body: formdata
         }).then(response => response.json())
             .then(response => {
-                this.setState({loading: false})
-                console.log("getprofileResponse-->", "-" + JSON.stringify(response));
+                this.setState({ loading: false })
                 if (response.code === 200) {
                     let mainData = response.profile;
                     this.setState({
@@ -66,7 +64,7 @@ export default class MyProfile extends Component {
                 }
             })
             .catch(error => {
-                this.setState({loading: false})
+                this.setState({ loading: false })
                 console.log('ResponseError:', error);
 
             });
@@ -78,22 +76,21 @@ export default class MyProfile extends Component {
 
     renderField(item) {
         return (
-            <View style={{width: "90%", backgroundColor: "#fff", flexDirection: "row", marginTop: 10}}>
-                <Text style={{fontSize: 15, color: "grey", width: "45%", fontWeight: "bold"}}>{item.name}</Text>
-                <Text style={{fontSize: 15, color: "grey", width: "10%"}}>{":"}</Text>
-                <Text style={{fontSize: 15, color: "black", width: "45%"}}>{item.value}</Text>
+            <View style={{ width: "90%", backgroundColor: "#fff", flexDirection: "row", marginTop: 10 }}>
+                <Text style={{ fontSize: 15, color: "grey", width: "45%", fontWeight: "bold" }}>{item.name}</Text>
+                <Text style={{ fontSize: 15, color: "grey", width: "10%" }}>{":"}</Text>
+                <Text style={{ fontSize: 15, color: "black", width: "45%" }}>{item.value}</Text>
             </View>
         )
     }
 
     render() {
-        console.log("url: " + encodeURI(constants.image_Url + this.state.profileImage))
         let url = encodeURI(constants.image_Url + this.state.profileImage)
         return (
-            <SafeAreaView style={{flex: 1, backgroundColor: "#E4F3F9"}}>
+            <SafeAreaView style={{ flex: 1, backgroundColor: "#E4F3F9" }}>
                 <Header
                     headerText={
-                        <Text style={[commonStyles.textStyle, {fontSize: sizes.extraMediumLarge}]}>
+                        <Text style={[commonStyles.textStyle, { fontSize: sizes.extraMediumLarge }]}>
                             {"MY PROFILE"}
                         </Text>
                     }
@@ -102,7 +99,7 @@ export default class MyProfile extends Component {
                     navigation={this.props.navigation}
                 />
                 <ScrollView>
-                    <View style={{width: "100%", flexDirection: "column", alignItems: "center"}}>
+                    <View style={{ width: "100%", flexDirection: "column", alignItems: "center" }}>
                         <View style={{
                             width: "90%",
                             backgroundColor: "#fff",
@@ -113,22 +110,22 @@ export default class MyProfile extends Component {
                         }}>
                             <AvatarComponent
                                 size={"large"}
-                                style={{height: 80, width: 80, resizeMode: "cover",marginTop:10,borderRadius: 5}}
+                                style={{ height: 80, width: 80, resizeMode: "cover", marginTop: 10, borderRadius: 5 }}
                                 source={url}
                             />
-                            <Text style={{fontSize: 15, color: "#2E5CA2",marginTop:20}}>{this.state.profileData.name}</Text>
-                            <View style={{width: '100%', alignItems: 'center', height: 70}}>
+                            <Text style={{ fontSize: 15, color: "#2E5CA2", marginTop: 20 }}>{this.state.profileData.name}</Text>
+                            <View style={{ width: '100%', alignItems: 'center', height: 70 }}>
                                 <TouchableOpacity
-                                    style={[styles.buttonStyle, {backgroundColor: colors.green}]}
+                                    style={[styles.buttonStyle, { backgroundColor: colors.green }]}
                                     onPress={() => {
                                         this.props.navigation.navigate("UpdateMyProfile")
                                     }}>
-                                    <Text style={{color: colors.white}}>{'Update Profile'}</Text>
+                                    <Text style={{ color: colors.white }}>{'Update Profile'}</Text>
                                 </TouchableOpacity>
                             </View>
-                            <View style={{width: '100%', alignItems: 'center', height: 70}}>
+                            <View style={{ width: '100%', alignItems: 'center', height: 70 }}>
                                 <TouchableOpacity
-                                    style={[styles.buttonStyle, {backgroundColor: colors.green}]}
+                                    style={[styles.buttonStyle, { backgroundColor: colors.green }]}
                                     onPress={() => {
                                         this.props.navigation.navigate("MyStudentCard", {
                                             QR: this.state.profileData.qr_code,
@@ -136,7 +133,7 @@ export default class MyProfile extends Component {
                                             studentId: this.state.profileData.id
                                         })
                                     }}>
-                                    <Text style={{color: colors.white}}>{'My Student Card'}</Text>
+                                    <Text style={{ color: colors.white }}>{'My Student Card'}</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -147,7 +144,7 @@ export default class MyProfile extends Component {
                             flexDirection: "column",
                             alignItems: "center",
                             margin: 20,
-                            paddingVertical:20,
+                            paddingVertical: 20,
                             borderRadius: 20
                         }}>
 
@@ -173,7 +170,7 @@ export default class MyProfile extends Component {
                             })}
                             {this.renderField({
                                 name: "Gender",
-                                value: this.state.profileData.gender == 1 ? 'Male': "Female"
+                                value: this.state.profileData.gender == 1 ? 'Male' : "Female"
                             })}
                             {this.renderField({
                                 name: "Date of Birth",
@@ -189,7 +186,7 @@ export default class MyProfile extends Component {
                             })}
                             {this.renderField({
                                 name: "Address",
-                                value: this.state.profileData.address+", Unit_No : "+this.state.profileData.unit_no+" , Postal_Code : "+ this.state.profileData.postal_code
+                                value: this.state.profileData.address + ", Unit_No : " + this.state.profileData.unit_no + " , Postal_Code : " + this.state.profileData.postal_code
                             })}
                             {this.renderField({
                                 name: "Postal Code",
@@ -226,7 +223,7 @@ export default class MyProfile extends Component {
 
                     </View>
                 </ScrollView>
-                <ProgressBar visible={this.state.loading}/>
+                <ProgressBar visible={this.state.loading} />
             </SafeAreaView>
         );
     }

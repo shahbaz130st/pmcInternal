@@ -8,7 +8,6 @@ import {
     ScrollView,
     SafeAreaView, FlatList, Alert, Modal
 } from 'react-native';
-// import Preference from 'react-native-preference';
 import * as colors from '../../../styles/colors';
 import * as sizes from '../../../styles/sizes';
 import commonStyles from '../../../styles/commonStyles';
@@ -55,7 +54,6 @@ export default class MyRewardPoint extends Component {
         }).then(response => response.json())
             .then(response => {
                 this.setState({ loading: false })
-                console.log("refferalReward-->", "-" + JSON.stringify(response));
                 if (response.code == 200) {
                     let rewardPoints = 0;
                     this.sortArray(response.data.redeem_list)
@@ -72,14 +70,12 @@ export default class MyRewardPoint extends Component {
                         allItems: response.data.redeem_list,
                         rewardPoints: rewardPoints
                     })
-                    // console.log("Reward Items: ", JSON.stringify(response.data.redeem_list))
                 } else {
                     Alert.alert("Server Error!", "Please try again.")
                 }
             })
             .catch(error => {
                 this.setState({ loading: false })
-                console.log('student_id', Preference.get('user_id'))
                 console.log('onMyCourseTabResponseError:', error);
 
             });
@@ -90,18 +86,13 @@ export default class MyRewardPoint extends Component {
         let tmp = array[0]
         for (let i = 0; i < array.length; i++) {
             for (let j = i + 1; j < array.length - 1; j++) {
-
                 if (parseInt(array[j].point) > parseInt(tmp.point)) {
                     tmp = array[j];
                 }
 
             }
-            console.log("\nSorted Element: ", JSON.stringify(tmp))
-
             sortedArray.push(tmp)
         }
-
-        console.log("\n\nSorted Array: ", JSON.stringify(sortedArray))
     }
 
     redeemItem(item) {
@@ -132,7 +123,6 @@ export default class MyRewardPoint extends Component {
         let formdata = new FormData();
         formdata.append("student_id", Preference.get('user_id'))
         formdata.append("id", item.id)
-        console.log("requestRedeem-->", "-" + JSON.stringify(formdata));
         fetch(constants.requestRedeem, {
             method: 'POST',
             headers: {
@@ -142,7 +132,6 @@ export default class MyRewardPoint extends Component {
         }).then(response => response.json())
             .then(response => {
                 this.setState({ loading: false })
-                console.log("requestRedeem-->", "-" + JSON.stringify(response));
                 if (response.code == 200) {
                     Alert.alert("Success", "Your redemption request is submitted. PMC student affairs will be reaching out to you soon. :)")
                     this.getAllItems();
@@ -152,7 +141,6 @@ export default class MyRewardPoint extends Component {
             })
             .catch(error => {
                 this.setState({ loading: false })
-                console.log('student_id', Preference.get('user_id'))
                 console.log('onMyCourseTabResponseError:', error);
 
             });
@@ -161,10 +149,6 @@ export default class MyRewardPoint extends Component {
     renderItem(item, index) {
         return (
             <View style={styles.itemContainerStyle}>
-                {/* <Image
-                    source={item.img.length>0 ? {uri: constants.image_Url+ item.img} : require('../../../assets/images/image_placeholder.png')}
-                    // source={{uri: constants.image_Url + item.img}}
-                       style={{width: 100, height: 100, resizeMode: "contain", marginTop: 10}}/>*/}
                 <TouchableOpacity onPress={() => this.setState({
                     currentImage:constants.image_Url + item.img,
                     visible: true
@@ -255,7 +239,6 @@ export default class MyRewardPoint extends Component {
                     keyboardShouldPersistTaps='handled'
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
-                    //contentContainerStyle={{height: '100%'}}
                     style={{ flex: 1, width: "100%" }}>
                     <View style={{ height: '100%', alignItems: 'center' }}>
 
@@ -356,7 +339,6 @@ export default class MyRewardPoint extends Component {
                                     extraData={this.state.allItems}
                                     showsVerticalScrollIndicator={false}
                                     numColumns={2}
-                                    // contentContainerStyle={{alignItems: 'center'}}
                                     style={{ width: '100%' }}
                                     removeClippedSubviews={true}
                                     maxToRenderPerBatch={4}
@@ -371,9 +353,6 @@ export default class MyRewardPoint extends Component {
                     </View>
 
                 </KeyboardAwareScrollView>
-                {/* <View style={{flex:1, alignItems: 'center', justifyContent: 'center'}}>
-                    <Text style={commonStyles.textStyle}>{"Not Designed Yet!"}</Text>
-                </View>*/}
                 <ProgressBar visible={this.state.loading} />
             </SafeAreaView>
         );

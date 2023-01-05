@@ -11,7 +11,6 @@ import {
     Dimensions,
     Platform
 } from 'react-native';
-// import Preference from 'react-native-preference';
 import * as colors from '../../../styles/colors';
 import * as sizes from '../../../styles/sizes';
 import commonStyles from '../../../styles/commonStyles';
@@ -64,7 +63,6 @@ export default class Announcements extends Component {
         }).then(response => response.json())
             .then(response => {
                 this.setState({ loading: false })
-                console.log("AnnouncementScreenApi-->", "-" + JSON.stringify(response.data.announcement_list));
                 if (response.code === 200) {
                     this.setState({
                         announcementsList: response.data.announcement_list,
@@ -81,20 +79,12 @@ export default class Announcements extends Component {
             .catch(error => {
                 this.setState({ loading: false })
                 console.log('ResponseError:', error);
-
             });
 
 
     }
 
     renderItem(item, index) {
-        /* if(!!item.date)
-         {
-             let data=item.date;
-             console.log("Date::", "-"+data);
-             item.date=data.split(" ");
-         }*/
-
         return (
             <TouchableOpacity
                 style={[styles.itemContainerStyle, { marginTop: index == 0 ? 0 : 10 }]}
@@ -186,7 +176,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         borderLeftWidth: 5,
         alignItems: 'center',
-        // justifyContent: 'center',
         width: '94%'
     },
     arrowStyle: {

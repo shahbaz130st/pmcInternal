@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     StyleSheet,
     Image,
@@ -10,9 +10,8 @@ import {
     SafeAreaView,
 } from 'react-native';
 import { Picker } from 'native-base'
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-import {constants} from '../../../Utils/constants'
-// import Preference from 'react-native-preference';
+import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
+import { constants } from '../../../Utils/constants'
 import * as colors from '../../../styles/colors';
 import * as sizes from '../../../styles/sizes';
 import commonStyles from '../../../styles/commonStyles';
@@ -22,9 +21,7 @@ import DatePicker from 'react-native-datepicker'
 import Preference from "react-native-preference";
 import moment from "moment";
 
-var radio_props = [
-    // {label: 'param1', value: 0 },
-];
+var radio_props = [];
 var radio2_props = [];
 export default class SubscribeCourse extends Component {
     constructor(props) {
@@ -50,7 +47,7 @@ export default class SubscribeCourse extends Component {
     }
 
     getLevel() {
-        this.setState({loading: true})
+        this.setState({ loading: true })
         let formdata = new FormData();
         formdata.append("school_id", '3')
         fetch(constants.getLevel, {
@@ -61,8 +58,7 @@ export default class SubscribeCourse extends Component {
             body: formdata
         }).then(response => response.json())
             .then(response => {
-                this.setState({loading: false})
-                console.log("ongetLevelApi-->", "-" + JSON.stringify(response));
+                this.setState({ loading: false })
                 if (response.code === 200) {
                     let data = response.data
                     data = data.map((item, index) => {
@@ -83,8 +79,7 @@ export default class SubscribeCourse extends Component {
                 }
             })
             .catch(error => {
-                this.setState({loading: false})
-                console.log('student_id', Preference.get('user_id'))
+                this.setState({ loading: false })
                 console.log('onMyCourseTabResponseError:', error);
 
             });
@@ -93,7 +88,7 @@ export default class SubscribeCourse extends Component {
     }
 
     getSubject(text) {
-        this.setState({loading: true})
+        this.setState({ loading: true })
         let formdata = new FormData();
         formdata.append("level", text)
         fetch(constants.getSubject, {
@@ -104,8 +99,7 @@ export default class SubscribeCourse extends Component {
             body: formdata
         }).then(response => response.json())
             .then(response => {
-                this.setState({loading: false})
-                console.log("getSujectApi-->", "-" + JSON.stringify(response));
+                this.setState({ loading: false })
                 if (response.code === 200) {
 
                     let data = response.data
@@ -122,7 +116,6 @@ export default class SubscribeCourse extends Component {
                         selectedSuject: data[0].label
                     }, () => {
                         this.getClass(this.state.selectedLevel, this.state.selectedLevel)
-                        // this.forceUpdate()
                     })
 
                 } else {
@@ -131,8 +124,7 @@ export default class SubscribeCourse extends Component {
                 }
             })
             .catch(error => {
-                this.setState({loading: false})
-                console.log('student_id', Preference.get('user_id'))
+                this.setState({ loading: false })
                 console.log('onMyCourseTabResponseError:', error);
 
             });
@@ -141,7 +133,7 @@ export default class SubscribeCourse extends Component {
     }
 
     getClass(lev, sub) {
-        this.setState({loading: true})
+        this.setState({ loading: true })
         let formdata = new FormData();
         formdata.append("level", lev)
         formdata.append("level", sub)
@@ -153,12 +145,9 @@ export default class SubscribeCourse extends Component {
             body: formdata
         }).then(response => response.json())
             .then(response => {
-                this.setState({loading: false})
-                console.log("getClassApi-->", "-" + JSON.stringify(response));
+                this.setState({ loading: false })
                 if (response.code === 200) {
-
                     let data = response.data
-                    console.log("getClassApi-->", "-" + JSON.stringify(response));
                     this.setState({
                         subjects: data,
                         subscribeCourseId: data[0].id
@@ -167,19 +156,14 @@ export default class SubscribeCourse extends Component {
                 }
             })
             .catch(error => {
-                this.setState({loading: false})
-                console.log('student_id', Preference.get('user_id'))
+                this.setState({ loading: false })
                 console.log('onMyCourseTabResponseError:', error);
-
             });
 
 
     }
-
-    // "2020-02-09"
     subscribeCourse() {
-        console.log('typeof : ' + typeof this.state.date + " date: " + this.state.date)
-        this.setState({loading: true})
+        this.setState({ loading: true })
         let formdata = new FormData();
         formdata.append("enroll_date", moment(this.state.date).format("YYYY-MM-DD"))
         formdata.append("schedule_id[0]", this.state.subscribeCourseId)
@@ -192,17 +176,14 @@ export default class SubscribeCourse extends Component {
             body: formdata
         }).then(response => response.json())
             .then(response => {
-                this.setState({loading: false})
-                console.log("subscribeCourseApi-->", "-" + JSON.stringify(response));
+                this.setState({ loading: false })
                 if (response.code === 200) {
-                    console.log("subscribeCourseApi-->", "-" + JSON.stringify(response));
                     this.props.navigation.navigate('AppDrawerNavigator');
                 } else {
                 }
             })
             .catch(error => {
-                this.setState({loading: false})
-                console.log('student_id', Preference.get('user_id'))
+                this.setState({ loading: false })
                 console.log('onMyCourseTabResponseError:', error);
 
             });
@@ -214,18 +195,15 @@ export default class SubscribeCourse extends Component {
 
     renderItem(item, index) {
         return (
-            <View style={[styles.itemContainerStyle, {marginTop: index == 0 ? 0 : 10}]}>
+            <View style={[styles.itemContainerStyle, { marginTop: index == 0 ? 0 : 10 }]}>
                 <RadioForm
                     radio_props={this.state.radioData}
                     initial={0}
                     buttonSize={10}
                     onPress={(value) => {
-                        this.setState({value: value})
-
+                        this.setState({ value: value })
                         const item = this.state.radioData.find((item) => item.value == value)
-                        console.log("value_result1", JSON.stringify(item.label))
-                        this.setState({selectedLevel: item.label})
-                        console.log("value_result122", this.state.selectedLevel)
+                        this.setState({ selectedLevel: item.label })
                         this.getSubject(item.label)
 
                     }}
@@ -237,18 +215,16 @@ export default class SubscribeCourse extends Component {
 
     renderItem2(item, index) {
         return (
-            <View style={[styles.itemContainerStyle, {marginTop: index == 0 ? 0 : 10}]}>
+            <View style={[styles.itemContainerStyle, { marginTop: index == 0 ? 0 : 10 }]}>
                 <RadioForm
                     radio_props={this.state.radioData2}
                     initial={0}
                     buttonSize={10}
                     onPress={
                         (value) => {
-                            this.setState({value: value})
+                            this.setState({ value: value })
                             const item = this.state.radioData2.find((item) => item.value == value)
-                            console.log("value_result2351", JSON.stringify(item.label))
-                            this.setState({selectedSuject: item.label})
-                            console.log("value_result542", this.state.selectedSuject)
+                            this.setState({ selectedSuject: item.label })
                             this.getClass(this.state.selectedLevel, this.state.selectedLevel)
                         }}
                 />
@@ -260,10 +236,10 @@ export default class SubscribeCourse extends Component {
     render() {
         return (
 
-            <SafeAreaView style={{flex: 1, backgroundColor: colors.white}}>
+            <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
                 <Header
                     headerText={
-                        <Text style={[commonStyles.textStyle, {fontSize: sizes.extraMediumLarge}]}>
+                        <Text style={[commonStyles.textStyle, { fontSize: sizes.extraMediumLarge }]}>
                             {"SUBSCRIBE COURSE"}
                         </Text>
                     }
@@ -273,18 +249,18 @@ export default class SubscribeCourse extends Component {
                 />
 
                 <ScrollView>
-                    <View style={{margin: 20}}>
+                    <View style={{ margin: 20 }}>
                         {/* <Text style={{ fontSize: 20 }}>SUBSCRIBE NEW COURSE</Text>
                         <View style={{width:'100%',height:10,backgroundColor:'red'}}/>
                         <View style={{width:'100%',height:20,backgroundColor:'blue'}}/> */}
-                        <Text style={{fontSize: 14, fontWeight: 'bold', marginBottom: 5, marginTop: 0}}>PLEASE SELECT
+                        <Text style={{ fontSize: 14, fontWeight: 'bold', marginBottom: 5, marginTop: 0 }}>PLEASE SELECT
                             THE SUBJECT AND SCHEDULE THAT YOU WANT TO ATTEND</Text>
-                        <Text style={{fontSize: 14, color: 'red'}}>You can register additional subject here. Please send
+                        <Text style={{ fontSize: 14, color: 'red' }}>You can register additional subject here. Please send
                             an email to admin@pmc.sg if you would like to transfer your existing class</Text>
-                        <Text style={{fontSize: 14, color: 'red'}}>Unable to subscribe existing subject. Please sms to
+                        <Text style={{ fontSize: 14, color: 'red' }}>Unable to subscribe existing subject. Please sms to
                             9100-1235 for manual registration of optional workshop.</Text>
-                        <Text style={{fontSize: 14, marginTop: 10, marginBottom: 10, fontWeight: 'bold'}}>LEVEL
-                            <Text style={{color: 'red',}}>*</Text>
+                        <Text style={{ fontSize: 14, marginTop: 10, marginBottom: 10, fontWeight: 'bold' }}>LEVEL
+                            <Text style={{ color: 'red', }}>*</Text>
                         </Text>
 
                         <FlatList
@@ -294,14 +270,13 @@ export default class SubscribeCourse extends Component {
                             showsVerticalScrollIndicator={false}
                             numColumns={2}
                             removeClippedSubviews={false}
-                            // contentContainerStyle={{width: '100%', backgroundColor: 'gray'}}
-                            style={{width: '100%'}}
-                            renderItem={({item, index}) => {
+                            style={{ width: '100%' }}
+                            renderItem={({ item, index }) => {
                                 return this.renderItem(item, index);
                             }}
                         />
-                        <Text style={{fontSize: 14, marginTop: 10, marginBottom: 10, fontWeight: 'bold'}}>SUBJECTS
-                            <Text style={{color: 'red',}}>*</Text>
+                        <Text style={{ fontSize: 14, marginTop: 10, marginBottom: 10, fontWeight: 'bold' }}>SUBJECTS
+                            <Text style={{ color: 'red', }}>*</Text>
                         </Text>
                         <FlatList
                             data={this.state.announcementsList2}
@@ -310,27 +285,26 @@ export default class SubscribeCourse extends Component {
                             showsVerticalScrollIndicator={false}
                             numColumns={2}
                             removeClippedSubviews={false}
-                            // contentContainerStyle={{width: '100%', backgroundColor: 'gray'}}
-                            style={{width: '100%'}}
-                            renderItem={({item, index}) => {
+                            style={{ width: '100%' }}
+                            renderItem={({ item, index }) => {
                                 return this.renderItem2(item, index);
                             }}
                         />
 
-                        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',marginTop:10,marginBottom:20}}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 10, marginBottom: 20 }}>
 
-                            <Text style={{fontSize: 14, marginTop: 10, fontWeight: 'bold'}}>Class
-                                <Text style={{color: 'red',}}>*</Text>
+                            <Text style={{ fontSize: 14, marginTop: 10, fontWeight: 'bold' }}>Class
+                                <Text style={{ color: 'red', }}>*</Text>
                             </Text>
                             <Picker
                                 selectedValue={this.state.subscribeCourseId}
-                                style={{height: 40, width: "45%"}}
-                                pickerStyleType={{fontSize:10}}
+                                style={{ height: 40, width: "45%" }}
+                                pickerStyleType={{ fontSize: 10 }}
                                 onValueChange={(itemValue, itemIndex) =>
-                                    this.setState({subscribeCourseId: itemValue})
+                                    this.setState({ subscribeCourseId: itemValue })
                                 }>
                                 {this.state.subjects.map((item, index) => {
-                                    return <Picker.Item  label={item.title +" "+item.day+"\n - "+item.start_time+" to "+item.end_time} value={item.id}/>
+                                    return <Picker.Item label={item.title + " " + item.day + "\n - " + item.start_time + " to " + item.end_time} value={item.id} />
                                 })}
                             </Picker>
                             {/* <TouchableOpacity onPress={() => {
@@ -340,7 +314,7 @@ export default class SubscribeCourse extends Component {
                             }}> */}
                             <DatePicker
                                 ref={ref => this.datePicker = ref}
-                                style={{width: 100,}}
+                                style={{ width: 100, }}
                                 date={this.state.date}
                                 mode="date"
                                 placeholder="select date"
@@ -365,7 +339,7 @@ export default class SubscribeCourse extends Component {
                                     }
                                 }}
                                 onDateChange={(date) => {
-                                    this.setState({date: date})
+                                    this.setState({ date: date })
                                 }}
                             />
                             {/* </TouchableOpacity> */}
@@ -381,14 +355,14 @@ export default class SubscribeCourse extends Component {
                             alignItems: 'center',
                             marginTop: 5
                         }}>
-                            <Text style={{fontSize: 18, color: 'white'}}>
+                            <Text style={{ fontSize: 18, color: 'white' }}>
                                 Confirm
                             </Text>
                         </TouchableOpacity>
 
                     </View>
                 </ScrollView>
-                <ProgressBar visible={this.state.loading}/>
+                <ProgressBar visible={this.state.loading} />
             </SafeAreaView>
 
         );
@@ -410,8 +384,6 @@ const styles = StyleSheet.create({
     },
     itemContainerStyle: {
         width: '50%',
-        // backgroundColor: 'blue',
-        // alignItems: 'center',
         justifyContent: 'center'
     },
 });

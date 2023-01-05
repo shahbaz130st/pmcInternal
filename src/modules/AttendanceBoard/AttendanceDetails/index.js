@@ -10,7 +10,6 @@ import {
     FlatList,
     Dimensions
 } from 'react-native';
-// import Preference from 'react-native-preference';
 import * as colors from '../../../styles/colors';
 import * as sizes from '../../../styles/sizes';
 import commonStyles from '../../../styles/commonStyles';
@@ -29,11 +28,6 @@ export default class AttendanceDetails extends Component {
             schedule: params.schedule,
             courseTitle: '',
             announcementsList: [
-                // {
-                //     id: 0,
-                //     date: '',
-                //     status: '',
-                // },
             ]
         }
     }
@@ -59,7 +53,6 @@ export default class AttendanceDetails extends Component {
         }).then(response => response.json())
             .then(response => {
                 this.setState({ loading: false })
-                console.log("onMyCourseFlatAttendancePressApi-->", "-" + JSON.stringify(response));
                 if (response.code === 200) {
 
                     this.setState({
@@ -85,8 +78,6 @@ export default class AttendanceDetails extends Component {
 
     renderItem(item, index) {
         let status="-";
-
-        //console.log("Dates:::", moment(item.enroll_date).format('YYYY-MM-DD') +"-------"+ moment(item.date).format('YYYY-MM-DD'))
         if(item.date>= item.withdraw && item.withdraw != '0000-00-00'){
             if(item.status == 2){
                 status= 'Withdraw';
@@ -94,14 +85,11 @@ export default class AttendanceDetails extends Component {
                 status= 'Transfer';
             }
         }else if(moment(item.enroll_date).format('YYYY-MM-DD') > moment(item.date).format('YYYY-MM-DD')){
-            //console.log("Dates:::", moment(item.enroll_date).format('YYYY-MM-DD') +"-------"+ moment(item.date).format('YYYY-MM-DD'))
             status= '-';
         } else{
-            console.log("Dateaa:::",   moment(new Date()).format('YYYY-MM-DD')  +"-------"+ item.date)
             if(item.attendance ===  0 &&  moment(new Date()).format('YYYY-MM-DD') > moment( item.date).format('YYYY-MM-DD')){
                 status= 'Absent';
             }else if(item.attendance.length>0){
-                console.log("attendance:::")
                 for (let i=0;i<item.attendance.length ;i++) {
                     if(item.attendance[i].att === "1"){
                         status= 'Normal Class';
@@ -111,19 +99,6 @@ export default class AttendanceDetails extends Component {
                 }
             }
         }
-       /* if(item.attendance ==  0)
-        {
-            status= "Absent";
-        }
-        else if(!(item.attendance ==  0))
-        {
-            let att=item.attendance
-            if(att[0].att==1)
-            {
-                status= "Normal Class";
-            }
-            //status= "Present";
-        }*/
         return (
             <View style={[styles.itemContainerStyle, { marginTop: index == 0 ? 0 : 10 }]}>
                <Text style={{ width: '15%', fontSize: 18, }}>{index+1+'.'}</Text>

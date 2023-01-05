@@ -8,7 +8,6 @@ import {
     ScrollView,Platform,
     SafeAreaView,
 } from 'react-native';
-// import Preference from 'react-native-preference';
 import * as colors from '../../../styles/colors';
 import * as sizes from '../../../styles/sizes';
 import commonStyles from '../../../styles/commonStyles';
@@ -35,19 +34,15 @@ export default class MyStudentCard extends Component {
     downloadImage()
     {
         this.refs.viewShot1.capture().then(uri => {
-
-            console.log("\n\n\nfile uri: "+ JSON.stringify(uri));
             const directory = Platform.OS === 'ios' ? RNFS.DocumentDirectoryPath : RNFS.PicturesDirectoryPath
             let destPath = directory + "/"+moment().format("x")+".jpg";
 
             RNFS.copyFile(uri, destPath)
                 .then((success) => {
-                    console.log('ShareScreen','file copied1!' + destPath);
 
                     if(Platform.OS === 'ios'){
                         CameraRoll.saveToCameraRoll(destPath)
                             .then(res => {
-                                console.log('ShareScreen','download-image-CameraRoll-result', JSON.stringify(res))
                                 alert("Image saved to camera-roll successfully");
                             })
                             .catch(err => {
@@ -58,7 +53,6 @@ export default class MyStudentCard extends Component {
                     }
                 })
                 .catch((err) => {
-                    console.log('ShareScreen','Error copying file: ' + err.message);
                     alert('Error copying file: ' + err.message);
                 });
         });

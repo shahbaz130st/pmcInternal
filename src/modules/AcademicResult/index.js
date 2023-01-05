@@ -8,7 +8,6 @@ import {
     ScrollView,
     SafeAreaView, FlatList, Dimensions,
 } from 'react-native';
-// import Preference from 'react-native-preference';
 import * as colors from '../../styles/colors';
 import * as sizes from '../../styles/sizes';
 import Header from '../../components/Header';
@@ -50,7 +49,6 @@ export default class AcademicResult extends Component {
         }).then(response => response.json())
             .then(response => {
                 this.setState({ loading: false })
-                console.log("getResultsResponse-->", "-" + JSON.stringify(response));
                 if (response.code === 200) {
 
                     this.setState({
@@ -61,7 +59,6 @@ export default class AcademicResult extends Component {
                     })
 
                 } else {
-
                 }
             })
             .catch(error => {
@@ -213,7 +210,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         borderLeftWidth: 5,
         alignItems: 'center',
-        // justifyContent: 'center',
         width: '94%'
     },
     buttonImageStyle:{

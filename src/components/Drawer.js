@@ -38,7 +38,6 @@ export default class Drawer extends Component {
         }
     }
     componentDidMount() {
-        // { uri: constants.image_Url + Preference.get("user_image") }
         let accounts = Preference.get('accounts')
         try {
             accounts = JSON.parse(accounts)
@@ -64,17 +63,12 @@ export default class Drawer extends Component {
                     }
                     else if (routeName == 'RegisterToWatchDigitalLesson') {
                         Linking.openURL('http://www.edutv.sg')
-                        // Linking.openURL('https://www.pmc.sg/pmc-digital/')
                     } else {
                         if (title == 'Referral and Reward') {
                             this.setState({ isShowRefferalTab: !this.state.isShowRefferalTab })
                         } else {
-                            /*if (title == 'Invoice and Payment') {
-                                this.setState({isShowInvoiceTab: !this.state.isShowInvoiceTab})
-                            } else*/ {
                                 this.setState({ isShowInvoiceTab: false, isShowRefferalTab: false, isShowCourseTab: false,isShowCallMakeUp:false })
                                 this.props.navigation.navigate(routeName)
-                            }
                         }
                     }
                 }}>
@@ -104,31 +98,11 @@ export default class Drawer extends Component {
                         require('../assets/icons/blue_dot.png'),
                         "Course"
                     )}
-                    {/* {this.renderDrawerItem(
-                        "SubscribeCourse",
-                        require('../assets/icons/blue_dot.png'),
-                        "Subscribe New Course"
-                    )} */}
                     {this.renderDrawerItem(
                         "Timetable",
                         require('../assets/icons/blue_dot.png'),
                         "Calender"
                     )}
-                    {/* {this.renderDrawerItem(
-                        "RequestForMakeup",
-                        require('../assets/icons/blue_dot.png'),
-                        "Request for makeup"
-                    )}
-                    {this.renderDrawerItem(
-                        "MakeupHistory",
-                        require('../assets/icons/blue_dot.png'),
-                        "Edit makeup"
-                    )}
-                    {this.renderDrawerItem(
-                        "RegisterToWatchDigitalLesson",
-                        require('../assets/icons/blue_dot.png'),
-                        "Register To Watch Digital Lesson"
-                    )} */}
                 </View>
             </View>
         )
@@ -191,11 +165,6 @@ export default class Drawer extends Component {
                         require('../assets/icons/blue_dot.png'),
                         "Invoice"
                     )}
-                    {/* {this.renderDrawerItem(
-                        "",
-                        require('../assets/icons/blue_dot.png'),
-                        "Message"
-                    )}*/}
                 </View>
             </View>
         )
@@ -236,7 +205,6 @@ export default class Drawer extends Component {
     }
 
     userLogout = () => {
-        //this.setState({loading: true})
         const {
             accounts
         } = this.state
@@ -259,7 +227,6 @@ export default class Drawer extends Component {
             body: formdata
         }).then(response => response.json())
             .then(response => {
-                console.log("logoutApiResponse-->", "-" + JSON.stringify(response));
                 if (response.code === 200) {
                     if (accounts.length > 1) {
                         this.removeAccount()
@@ -270,10 +237,8 @@ export default class Drawer extends Component {
                 } else {
                     alert(response.msg)
                 }
-
             })
             .catch(error => {
-
                 console.log('ResponseError:', error);
             });
     }
@@ -383,15 +348,11 @@ export default class Drawer extends Component {
                             require('../assets/icons/invoice.png'),
                             "Invoice and Payment"
                         )}
-                        {/* {this.state.isShowInvoiceTab && this.renderInvoiceMenuItem()}*/}
 
                         <TouchableOpacity
                             style={styles.groupStyle}
                             onPress={() => {
-                                // Preference.clear();
                                 this.userLogout();
-                                //this.props.navigation.dispatch(resetActionToLogin);
-
                             }}>
                             <Image
                                 style={styles.buttonImageStyle}

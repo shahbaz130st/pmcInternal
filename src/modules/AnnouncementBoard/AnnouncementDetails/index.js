@@ -13,7 +13,6 @@ import {
 import { WebView } from 'react-native-webview';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
-// import Preference from 'react-native-preference';
 import * as colors from '../../../styles/colors';
 import * as sizes from '../../../styles/sizes';
 import commonStyles from '../../../styles/commonStyles';
@@ -21,7 +20,6 @@ import { constants } from '../../../Utils/constants'
 import Header from '../../../components/Header';
 import ProgressBar from '../../../components/ProgressBar';
 import RNFetchBlob from 'rn-fetch-blob'
-
 export default class AnnouncementDetails extends Component {
     constructor(props) {
         super(props);
@@ -54,10 +52,8 @@ export default class AnnouncementDetails extends Component {
     onAnnouncementPress() {
         this.setState({ loading: true })
         let formdata = new FormData();
-
         formdata.append("announcement_id", this.state.selectedItem)
         formdata.append("student_id", this.state.userId)
-        console.log("announcement_id", "--" + constants.announcementDetail, formdata);
         fetch(constants.announcementDetail, {
             method: 'POST',
             headers: {
@@ -68,8 +64,6 @@ export default class AnnouncementDetails extends Component {
             .then(response => {
                 this.setState({ loading: false })
                 if (response.code === 200) {
-                    console.log("response1", response.data.title)
-
                     this.state.title = response.data.title
                     this.state.date = response.data.date
                     this.state.description = response.data.description
@@ -93,7 +87,6 @@ export default class AnnouncementDetails extends Component {
                             name: response.data.file3.split("/").pop()
                         })
                     }
-
                     this.setState({ files })
                 } else {
                 }
@@ -101,10 +94,7 @@ export default class AnnouncementDetails extends Component {
             .catch(error => {
                 this.setState({ loading: false })
                 console.log('ResponseError:', error);
-
             });
-
-
     }
 
 
@@ -203,12 +193,8 @@ export default class AnnouncementDetails extends Component {
                                         marginTop: 10,
                                         marginBottom: 10,
                                         flex: 1,
-                                    },
-                                    // this.state.webViewHeight > 0 && {
-                                    //     height: this.state.webViewHeight
-                                    // }
+                                    }
                                 ]}>
-                                {/* <Image style={styles.arrowStyle} source={require('../../../assets/icons/download.png')} /> */}
                                 <Text style={{
                                     marginLeft: 10,
                                     marginRight: 10,
@@ -222,10 +208,8 @@ export default class AnnouncementDetails extends Component {
                                         originWhitelist={['']}
                                         style={[
                                             {
-                                                // backgroundColor: "#F2F2F2",
                                                 flex: 1,
-                                                flexGrow: 1,
-                                                // height: screenHeight
+                                                flexGrow: 1
                                             },
                                         ]}
                                         containerStyle={{
@@ -271,11 +255,6 @@ export default class AnnouncementDetails extends Component {
 
                                         }}
                                         originWhitelist={['*']}
-                                        // source={{ html: this.state.description }}
-                                        // source={{ uri: 'https://reactnative.dev/' }}
-                                        // source={{
-                                        //     uri: this.state.description
-                                        //   }}
                                         source={{ html }} />
                                 )}
                             </View>
@@ -287,28 +266,15 @@ export default class AnnouncementDetails extends Component {
             </SafeAreaView>
         );
     }
-
-
     onShouldStartLoadWithRequest = (request) => {
-        console.log(request.url);
         if (Platform.OS === 'ios') return true;
         else
             Linking.openURL(request.url);
     }
-
     openExternalLink(req) {
         Linking.openURL(req.url);
-        /*const isLocal = req.url.search('https://') !== -1;
-
-        if (isLocal) {
-            return true;
-        } else {
-            Linking.openURL(req.url);
-            return false;
-        }*/
     }
 }
-
 const styles = StyleSheet.create({
     groupStyle: {
         marginTop: 40,
@@ -323,15 +289,12 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     itemContainerStyle: {
-        // flexDirection: 'row',
         borderRadius: 20,
         paddingHorizontal: 25,
         paddingTop: 25,
         borderLeftColor: 'yellow',
         backgroundColor: colors.white,
         borderLeftWidth: 5,
-        // alignItems: 'center',
-        // justifyContent: 'center',
         width: '98%'
     },
     arrowStyle: {

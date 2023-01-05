@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NavigationActions, StackActions } from "react-navigation";
-// import Preference from 'react-native-preference';
 import * as colors from '../../styles/colors';
 import * as sizes from '../../styles/sizes';
 import commonStyles from '../../styles/commonStyles';
@@ -45,7 +44,6 @@ export default class Dashboard extends Component {
             },
             body: formdata
         }).then(response => response.json()).then(response => {
-            console.log("refrel error reward", response)
             this.setState({ headingText: response?.message })
             if (response.data?.student_point?.total_point) {
                 this.setState({
@@ -68,7 +66,6 @@ export default class Dashboard extends Component {
         }).then(response => response.json())
             .then(response => {
                 this.setState({ loading: false })
-                console.log("getPendingDuesResponse-->", "-" + JSON.stringify(response));
                 if (response.code === 200) {
                     this.setState({
                         pendingDues: response.data.total_balance
@@ -110,7 +107,6 @@ export default class Dashboard extends Component {
                     keyboardShouldPersistTaps='handled'
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
-                    // contentContainerStyle={{height: '100%'}}
                     style={{ flex: 1, width: "100%" }}>
                     <View style={{ height: '100%', justifyContent: 'flex-start', alignItems: 'center' }}>
                         <View style={styles.groupStyle}>
@@ -124,7 +120,6 @@ export default class Dashboard extends Component {
                             alignItems: 'center',
                             marginTop: 20
                         }} onPress={() => {
-                            // MyRewardPoint
                             this.props.navigation.navigate('MyRewardPoint')
                         }}>
                             <Text style={{
@@ -261,7 +256,6 @@ export default class Dashboard extends Component {
                                 style={[styles.buttonImageStyle, { height: 111 }]}
                                 onPress={() => {
                                     Linking.openURL("https://wa.me/message/YGCH2EUFWDEVI1")
-                                    /*  this.props.navigation.navigate("MyProfile") */
                                 }}>
                                 <Image
                                     style={[commonStyles.imageStyle]}
@@ -283,8 +277,7 @@ const styles = StyleSheet.create({
         width: '90%',
         justifyContent: 'space-around',
         flexDirection: 'row',
-        alignItems: 'center',
-        //backgroundColor:"yellow"
+        alignItems: 'center'
     },
     buttonImageStyle: {
         width: 120,

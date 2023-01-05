@@ -8,7 +8,6 @@ import {
     ScrollView,Alert,
     SafeAreaView, FlatList, Dimensions,
 } from 'react-native';
-// import Preference from 'react-native-preference';
 import * as colors from '../../../styles/colors';
 import * as sizes from '../../../styles/sizes';
 import commonStyles from '../../../styles/commonStyles';
@@ -30,7 +29,6 @@ export default class MakeupHistory extends Component {
     }
 
     componentDidMount() {
-        console.log("Calling component");
         this.getMakeUpHistory();
     }
 
@@ -48,14 +46,10 @@ export default class MakeupHistory extends Component {
         }).then(response => response.json())
             .then(response => {
                 this.setState({loading: false})
-                console.log("MakeUpHistory-->", "-" + JSON.stringify(response));
                 this.setState({makeUpHistory:response.make_up_list})
             })
             .catch(error => {
                 this.setState({loading: false})
-                console.log('student_id', Preference.get('user_id'))
-                console.log('onMyCourseTabResponseError:', error);
-
             });
     }
 
@@ -74,7 +68,6 @@ export default class MakeupHistory extends Component {
         }).then(response => response.json())
             .then(response => {
                 this.setState({loading: false})
-                console.log("MakeUpHistory-->", "-" + JSON.stringify(response));
                 if(response.code==200)
                 {
                     Alert.alert("Success!","Your Request is submitted.");
@@ -85,7 +78,6 @@ export default class MakeupHistory extends Component {
             })
             .catch(error => {
                 this.setState({loading: false})
-                console.log('student_id', Preference.get('user_id'))
                 console.log('onMyCourseTabResponseError:', error);
 
             });
@@ -113,32 +105,22 @@ export default class MakeupHistory extends Component {
     renderItem(item, index){
         if(item.remark==="")
             item.remark="-"
-
-        console.log("StatusMakeup: "+ item.status +"-- "+index)
-        // if( item.status==="0")
-        //     item.status="Cancel"
-        // else
-        //     item.status="Approve"
         let statusMakeUp="";
 
             if(item.status === "1")
             {
-                //echo "Approve";
                 statusMakeUp="Approve"
             }
             else if(item.status === "2")
             {
-                //echo "Reject";
                 statusMakeUp="Reject"
             }
             else if(item.status === "3")
             {
-                //echo "Cancel";
                 statusMakeUp="Cancel"
             }
             else
             {
-                //echo "Requesting";
                 statusMakeUp="Requesting"
             }
 
@@ -192,9 +174,6 @@ export default class MakeupHistory extends Component {
                         />
                     </View>
                 </View>
-                {/*<View style={{flex:1, alignItems: 'center', justifyContent: 'center'}}>
-                    <Text style={commonStyles.textStyle}>{"Not Designed Yet!"}</Text>
-                </View>*/}
                 <ProgressBar visible={this.state.loading} />
             </SafeAreaView>
         );
@@ -229,7 +208,6 @@ const styles = StyleSheet.create({
         borderLeftWidth: 5,
         alignItems: 'center',
         justifyContent: 'center',
-        //width: '100%',
         width: width * 0.95,
     },
 });

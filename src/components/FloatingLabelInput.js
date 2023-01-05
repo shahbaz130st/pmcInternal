@@ -140,9 +140,9 @@ var FloatingLabel = createReactClass({
                 onFocus: this._onFocus,
                 ref: this.props.myRef,
                 onSubmitEditing: this.props.onSubmitEditing,
-                password: this.props.secureTextEntry || this.props.password, // Compatibility
+                password: this.props.secureTextEntry || this.props.password, 
                 placeholder: this.props.placeholder,
-                secureTextEntry: this.props.secureTextEntry || this.props.password, // Compatibility
+                secureTextEntry: this.props.secureTextEntry || this.props.password, 
                 returnKeyType: this.props.returnKeyType,
                 selectTextOnFocus: this.props.selectTextOnFocus,
                 selectionState: this.props.selectionState,
@@ -151,7 +151,7 @@ var FloatingLabel = createReactClass({
                 testID: this.props.testID,
                 accessibilityLabel: this.props.accessibilityLabel,
                 value: this.state.text,
-                underlineColorAndroid: this.props.underlineColorAndroid, // android TextInput will show the default bottom border
+                underlineColorAndroid: this.props.underlineColorAndroid, 
                 onKeyPress: this.props.onKeyPress
             },
             elementStyles = [styles.element];

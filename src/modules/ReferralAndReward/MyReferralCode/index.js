@@ -8,7 +8,6 @@ import {
     ScrollView, Linking,
     SafeAreaView, Alert,
 } from 'react-native';
-// import Preference from 'react-native-preference';
 import * as colors from '../../../styles/colors';
 import * as sizes from '../../../styles/sizes';
 import commonStyles from '../../../styles/commonStyles';
@@ -46,7 +45,6 @@ export default class MyReferralCode extends Component {
         }).then(response => response.json())
             .then(response => {
                 this.setState({ loading: false })
-                console.log("refferalReward---->", "-" + JSON.stringify(response));
                 if (response.code == 200) {
                     this.setState({
                         myRefferralCode: response.data,
@@ -59,9 +57,7 @@ export default class MyReferralCode extends Component {
             })
             .catch(error => {
                 this.setState({ loading: false })
-                console.log('student_id', Preference.get('user_id'))
                 console.log('onMyCourseTabResponseError:', error);
-
             });
     }
 
@@ -86,7 +82,6 @@ export default class MyReferralCode extends Component {
                     keyboardShouldPersistTaps='handled'
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
-                    //contentContainerStyle={{height: '100%'}}
                     style={{ flex: 1, width: "100%" }}>
                     <View style={{ height: '100%', alignItems: 'center' }}>
                         <View style={{ width: "100%", height: 100, alignItems: "center" }}>
@@ -100,13 +95,10 @@ export default class MyReferralCode extends Component {
                                     originWhitelist={['*']}
                                     style={{
                                         width: '100%',
-                                        // backgroundColor: "#F2F2F2",
                                         height: 250
                                     }}
                                     useWebKit={true}
                                     onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-
-                                    //onShouldStartLoadWithRequest={this.openExternalLink}
                                     source={{
                                         html: '<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body><p>' + this.state.description + '</p></body></html>',
                                         baseUrl: ''
@@ -118,22 +110,6 @@ export default class MyReferralCode extends Component {
                                 </TouchableOpacity>
                             </View>
                         )}
-
-                        {/* <View style={styles.groupStyle}>
-                            <Text style={{
-                                color: "#DA7A00",
-                                fontSize: 20,
-                                textAlign: 'center',
-                            }}>{'SPECIAL MARCH / APRIL PROMOTION (1 MAR TO 30 APR)'}</Text>
-                        </View>
-
-                        <View style={styles.groupStyle}>
-                            <Text style={{
-                                color: "grey",
-                                fontSize: 18,
-                                textAlign: 'center',
-                            }}>{'Earn $20 PMC currency now! Refer a Friend using your unique code. Both you and your friend will receive $10 PMC Currency each. $10 will be given instantly upon online registration with your referral code. We all love win-win situations, so why not treat and help a friend out who is in need of an extra boost in Physics, Math & Chemistry ! '}</Text>
-                        </View> */}
 
                         <View style={styles.groupStyle}>
                             <Text style={{
@@ -170,9 +146,7 @@ export default class MyReferralCode extends Component {
 
                         <View style={styles.groupStyle}>
                             <TouchableOpacity onPress={() => {
-                                //Linking.openURL("whatsapp://send?text='this.state.msg'")
                                 Linking.openURL('whatsapp://send?text=' + this.state.msg).then((data) => {
-                                    console.log('WhatsApp Opened');
                                 }).catch(() => {
                                     alert('Make sure Whatsapp installed on your device');
                                 });

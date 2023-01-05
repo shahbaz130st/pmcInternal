@@ -8,7 +8,6 @@ import {
     ScrollView, Alert,
     SafeAreaView,
 } from 'react-native';
-// import Preference from 'react-native-preference';
 import { Picker } from 'native-base'
 import * as colors from '../../../styles/colors';
 import * as sizes from '../../../styles/sizes';
@@ -54,16 +53,13 @@ export default class RequestForMakeup extends Component {
         }).then(response => response.json())
             .then(response => {
                 this.setState({ loading: false })
-                console.log("getCourses-->", "-" + JSON.stringify(response));
                 let data = response.course_list
-                console.log("getCourses-->", "-" + JSON.stringify(response.course_list[0]));
                 this.setState({
                     courses: data,
                 })
             })
             .catch(error => {
                 this.setState({ loading: false })
-                console.log('student_id', Preference.get('user_id'))
                 console.log('onMyCourseTabResponseError:', error);
 
             });
@@ -76,10 +72,7 @@ export default class RequestForMakeup extends Component {
             coursesNewDate: []
         })
         let formdata = new FormData();
-        //formdata.append("course_schedule_id", val)
         formdata.append("course", val)
-        console.log("Params setCourseDate: ", JSON.stringify(formdata))
-        // fetch(constants.getCourseDates, {
         fetch(constants.getClassDates, {
             method: 'POST',
             headers: {
@@ -88,21 +81,17 @@ export default class RequestForMakeup extends Component {
             body: formdata
         }).then(async response => {
             const responseText = await response.text();
-            console.log("setCourseDate-response", responseText);
             return JSON.parse(responseText)
         })
             .then(response => {
                 this.setState({ loading: false })
-                console.log("setCourseDate-->", "-" + JSON.stringify(response));
                 let data = response
-                console.log("getCoursesDates-->", "-" + JSON.stringify(response));
                 this.setState({
                     coursesDate: data,
                 })
             })
             .catch(error => {
                 this.setState({ loading: false })
-                console.log('student_id', Preference.get('user_id'))
                 console.log('onMyCourseTabResponseError:', error);
 
             });
@@ -113,12 +102,8 @@ export default class RequestForMakeup extends Component {
     getCoursesNewDates(val) {
         this.setState({ loading: true })
         let formdata = new FormData();
-        // formdata.append("course_schedule_id", this.state.selectedCourse)
-        // formdata.append("day", val)
         formdata.append("course", this.state.selectedCourse)
         formdata.append("date", val)
-        console.log("Params getCoursesNewDates: ", JSON.stringify(formdata))
-        //fetch(constants.getCourseNewDates, {
         fetch(constants.getCourseDates, {
             method: 'POST',
             headers: {
@@ -128,17 +113,13 @@ export default class RequestForMakeup extends Component {
         }).then(response => response.json())
             .then(response => {
                 this.setState({ loading: false })
-                console.log("getCoursesNewDates-->", "-" + JSON.stringify(response));
-
                 let data = response
-                console.log("getCourses-->", "-" + JSON.stringify(response));
                 this.setState({
                     coursesNewDate: data,
                 })
             })
             .catch(error => {
                 this.setState({ loading: false })
-                console.log('student_id', Preference.get('user_id'))
                 console.log('onMyCourseTabResponseError:', error);
 
             });
@@ -162,7 +143,6 @@ export default class RequestForMakeup extends Component {
         }).then(response => response.json())
             .then(response => {
                 this.setState({ loading: false })
-                console.log("CourseSubmittion-->", "-" + JSON.stringify(response));
                 if (response.code === 200) {
                     Alert.alert("Success!", "You request for a makeup is submitted.")
                     this.props.navigation.goBack();
@@ -173,7 +153,6 @@ export default class RequestForMakeup extends Component {
             })
             .catch(error => {
                 this.setState({ loading: false })
-                console.log('student_id', Preference.get('user_id'))
                 console.log('onMyCourseTabResponseError:', error);
 
             });
@@ -214,7 +193,6 @@ export default class RequestForMakeup extends Component {
                                 style={{ height: 40, width: "100%" }}
                                 onValueChange={(itemValue, itemIndex) =>
                                     this.setState({ selectedCourse: itemValue }, () => {
-                                        console.log("gettingCourseDate");
                                         this.setCourseDate(itemValue)
                                     })
                                 }>
@@ -227,7 +205,6 @@ export default class RequestForMakeup extends Component {
                     <View style={{
                         width: "90%",
                         flexDirection: 'row',
-                        //alignItems: 'center',
                         justifyContent: 'space-between',
                         marginTop: 10,
                         marginBottom: 20
@@ -257,7 +234,6 @@ export default class RequestForMakeup extends Component {
                     <View style={{
                         width: "90%",
                         flexDirection: 'row',
-                        // alignItems: 'center',
                         justifyContent: 'space-between',
                         marginTop: 10,
                         marginBottom: 20

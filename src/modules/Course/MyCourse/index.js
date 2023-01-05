@@ -10,7 +10,6 @@ import {
     FlatList,
     Dimensions
 } from 'react-native';
-// import Preference from 'react-native-preference';
 import * as colors from '../../../styles/colors';
 import * as sizes from '../../../styles/sizes';
 import commonStyles from '../../../styles/commonStyles';
@@ -24,17 +23,7 @@ export default class MyCourse extends Component {
         super(props);
         this.state = {
             loading: false,
-            announcementsList: [
-                // {
-                //     id: 0,
-                //     title: 'NOVENA S1 (MATHS + SCIENCE) ( Term - 1 / 2020 )',
-                //     schedule: 'Sun - 09:00:00 to 11:00:00 ( Novena LT )',
-                //     enroll_date: '02 Feb 2020',
-                //     status: true,
-                // },
-
-
-            ]
+            announcementsList: []
         }
     }
 
@@ -58,9 +47,7 @@ export default class MyCourse extends Component {
         }).then(response => response.json())
             .then(response => {
                 this.setState({ loading: false })
-                console.log("onMyCourseTabApi-->", "-" + JSON.stringify(response));
                 if (response.code === 200) {
-
                     this.setState({
                         announcementsList:response.data.course_list
                     }, () => {
@@ -76,9 +63,7 @@ export default class MyCourse extends Component {
             })
             .catch(error => {
                 this.setState({ loading: false })
-                console.log('student_id',Preference.get('user_id'))
                 console.log('onMyCourseTabResponseError:', error);
-
             });
 
 

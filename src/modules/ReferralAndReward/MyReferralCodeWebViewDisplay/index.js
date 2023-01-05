@@ -8,7 +8,6 @@ import {
     ScrollView, Linking,
     SafeAreaView, Alert,
 } from 'react-native';
-// import Preference from 'react-native-preference';
 import * as colors from '../../../styles/colors';
 import * as sizes from '../../../styles/sizes';
 import commonStyles from '../../../styles/commonStyles';
@@ -44,7 +43,6 @@ export default class MyReferralCodeWebViewDisplay extends Component {
         }).then(response => response.json())
             .then(response => {
                 this.setState({ loading: false })
-                console.log("refferalReward---->", "-" + JSON.stringify(response));
                 if (response.code == 200) {
                     this.setState({
                         myRefferralCode: response.data,
@@ -57,9 +55,7 @@ export default class MyReferralCodeWebViewDisplay extends Component {
             })
             .catch(error => {
                 this.setState({ loading: false })
-                console.log('student_id', Preference.get('user_id'))
                 console.log('onMyCourseTabResponseError:', error);
-
             });
     }
 

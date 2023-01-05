@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
     headerImageStyle:{
         width: 25,
         height: 25,
-        //backgroundColor:"yellow",
         position: 'absolute',
         left: 15
     }

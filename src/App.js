@@ -19,12 +19,6 @@ class App extends Component {
     }
 
     componentDidMount() {
-        // Build a channel
-        // const channel = new firebase.notifications.Android.Channel('PMCStudent', 'PMCStudent', firebase.notifications.Android.Importance.Max)
-        //     .setDescription('PMCStudent');
-        //
-        // // Create the channel
-        // firebase.notifications().android.createChannel(channel);
         this.createNotificationListeners();
 
     }
@@ -40,12 +34,6 @@ class App extends Component {
         **/
         this.notificationListener = firebase.notifications().onNotification((notification) => {
             const {title, body, data} = notification;
-            console.log('Notifications', title, body, JSON.stringify(data));
-            /*if (title == 'Appointment completed' && data.appointment_status == '1') {
-                if (Preference.get('clientlogin') === true) {
-                    this.moveToClientLeaveReview(data);
-                }
-            }*/
             this.showAlert(title, body, data);
         });
 
@@ -54,9 +42,6 @@ class App extends Component {
          **/
         this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
             const {title, body} = notificationOpen.notification;
-            console.log("Notificcation is opened1")
-            //alert("Notification: "+JSON.stringify(body));
-            //this.showAlert(title, body);
         });
 
         /*
@@ -64,14 +49,10 @@ class App extends Component {
          **/
         const notificationOpen = await firebase.notifications().getInitialNotification();
         if (notificationOpen) {
-            //console.log("Notificcation is opened=",JSON.stringify(notificationOpen))
             const {title, body, data} = notificationOpen.notification;
-            console.log("Notificcation is opened", JSON.stringify(body))
             setTimeout(() => {
                 this.moveToAnnouncementDetail(data)
             }, 3000);
-
-            //this.showAlert(title, body);
         }
     }
 
@@ -80,7 +61,6 @@ class App extends Component {
         if (this.popup) {
             this.popup.show({
                 onPress: () => {
-                    console.log("Notification Clicked")
                     if (Preference.get("isLoggedIn") === true)
                         this.moveToAnnouncementDetail(data)
 
@@ -96,7 +76,6 @@ class App extends Component {
     }
 
     moveToAnnouncementDetail = (data) => {
-        console.log("Notificcation is opened", JSON.stringify(data))
         this.navigator.dispatch(
             NavigationActions.navigate({
                 routeName: 'AnnouncementDetails', params: {
@@ -119,8 +98,3 @@ class App extends Component {
 }
 
 export default App;
-
-// const App = () =>
-//     <Routing/>
-//
-// export default App;

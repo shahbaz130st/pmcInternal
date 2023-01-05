@@ -19,9 +19,7 @@ import ProgressBar from '../../../components/ProgressBar';
 import FloatingLabel from '../../../components/FloatingLabelInput';
 import Preference from 'react-native-preference';
 import { constants } from '../../../Utils/constants'
-import { check, PERMISSIONS, RESULTS, request } from 'react-native-permissions';
 import firebase from "react-native-firebase";
-const { height, width } = Dimensions.get('window');
 const resetActionToHome = StackActions.reset({
     index: 0,
     actions: [NavigationActions.navigate({ routeName: 'AppDrawerNavigator' })],
@@ -43,7 +41,6 @@ export default class Login extends Component {
 
     componentDidMount() {
         const { params } = this.props.navigation.state
-        console.log('params', params)
         if (params?.newAccount) {
             this.setState({
                 newAccount: true
@@ -51,51 +48,12 @@ export default class Login extends Component {
         }
         this.checkInternet();
         this.checkPermission();
-        this.CheckDevicePermissions();
-    }
-
-    CheckDevicePermissions = () => {
-        if (Platform.OS === "android") {
-            request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then((result) => {
-                if (result === RESULTS.GRANTED) {
-                    request(PERMISSIONS.ANDROID.CAMERA).then((result) => {
-                        if (result === RESULTS.GRANTED) {
-                            // request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then((result) => {
-                            //     if (result === RESULTS.GRANTED) {
-                            //         request(PERMISSIONS.ANDROID.RECORD_AUDIO).then((result) => { });
-                            //     }
-                            // });
-                        }
-                    });
-                }
-            });
-        } else {
-            request(PERMISSIONS.IOS.CAMERA).then((result) => {
-                if (result === RESULTS.GRANTED) {
-                    request(PERMISSIONS.IOS.MEDIA_LIBRARY).then((result) => {
-                        if (result === RESULTS.GRANTED) {
-                            request(PERMISSIONS.IOS.MICROPHONE).then((result) => {
-                                if (result === RESULTS.GRANTED) {
-                                    request(PERMISSIONS.IOS.PHOTO_LIBRARY).then((result) => {
-                                        if (result === RESULTS.GRANTED) {
-                                            //request(PERMISSIONS.ANDROID.RECORD_AUDIO).then((result) => {});
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-
-        }
     }
 
 
     async checkPermission() {
         const enabled = await firebase.messaging().hasPermission();
         if (enabled) {
-            console.log("fcmToken getting");
             this.getToken();
         } else {
             this.requestPermission();
@@ -103,17 +61,9 @@ export default class Login extends Component {
     }
 
     async getToken() {
-        console.log("fcmToken getting inside");
-        //fcmToken = await Preference.get('fcmToken');
-        console.log("fcmToken getting inside", JSON.stringify(fcmToken));
         if (!fcmToken) {
             fcmToken = await firebase.messaging().getToken();
-            console.log("fcmToken getting inside Got", JSON.stringify(fcmToken));
             if (fcmToken) {
-                // user has a device token
-                //this.setDevice();
-                console.log("fcmToken: ", fcmToken);
-                //Preference.set('fcmToken', fcmToken);
             }
         }
     }
@@ -121,11 +71,8 @@ export default class Login extends Component {
     async requestPermission() {
         try {
             await firebase.messaging().requestPermission();
-            // User has authorised
             this.getToken();
         } catch (error) {
-            // User has rejected permissions
-            //Alert.alert("Warning!","")
             console.log('permission rejected');
         }
     }
@@ -133,8 +80,6 @@ export default class Login extends Component {
 
     checkInternet() {
         const subscribe = NetInfo.addEventListener(state => {
-            //console.log("subscribe Connection type", state.type);
-            //console.log("subscribe Is connected? ", state.isConnected);
             this.setState({ isConnected: state.isConnected })
         });
         subscribe();
@@ -168,7 +113,6 @@ export default class Login extends Component {
                 accounts[i].active = false
             }
         } catch (error) { accounts = [] }
-        // account.name = account.name + ' - ' + accounts.length;
         let accountLoggedin = false
         for (let i = 0; i < accounts.length; i++) {
             if (accounts[i].id == user.id) {
@@ -193,23 +137,15 @@ export default class Login extends Component {
                 formdata.append("email", this.state.email)
                 formdata.append("phone_no", this.state.mobileNo)
                 formdata.append("device_id", fcmToken)
-                console.log("form: " + JSON.stringify(formdata))
                 fetch(constants.Login, {
                     method: 'POST',
                     headers: {
-                        'Accept': 'application/json',
-                        // 'Content-Type': 'multipart/form-data',
+                        'Accept': 'application/json'
                     },
                     body: formdata
-                    // body: JSON.stringify({
-                    //     email: this.state.email,
-                    //     phone_no: this.state.mobileNo,
-                    //     device_id: fcmToken
-                    // })
                 }).then(response => response.json())
                     .then(response => {
                         this.setState({ loading: false })
-                        console.log("VerifyCouponApiResponse-->", "-" + JSON.stringify(response));
                         if (response.code === 200) {
                             Preference.set('isLoggedIn', true);
                             Preference.set('device_id', fcmToken);
@@ -316,15 +252,11 @@ export default class Login extends Component {
                                             style={commonStyles.navigationButton}
                                             onPress={() => {
                                                 this.onLoginPressed();
-                                                // this.props.navigation.dispatch(resetActionToHome)
                                             }}>
                                             <Text style={commonStyles.navigationButtonText}>SIGN IN</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>
-                                {/* <View style={{flex:1, justifyContent: 'flex-end'}}>
-                                    <Text style={[{color: colors.white,fontSize: sizes.small, marginBottom:5}]}>{"Copyright \u00A9 2017 Developed by XYZ"}</Text>
-                                </View> */}
                             </View>
                         </View>
                     </KeyboardAwareScrollView>

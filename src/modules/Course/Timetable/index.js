@@ -9,7 +9,6 @@ import {
     SafeAreaView,
     Arrow, FlatList
 } from 'react-native';
-// import Preference from 'react-native-preference';
 import * as colors from '../../../styles/colors';
 import * as sizes from '../../../styles/sizes';
 import commonStyles from '../../../styles/commonStyles';
@@ -53,7 +52,6 @@ export default class Timetable extends Component {
             this.setState({loading: false})
             if (response) {
                 this.setState({listOfItems: response})
-                console.log("response-->", "-" + JSON.stringify(response));
                 this.setDays(moment(new Date().getDate()).format('YYYY-MM-DD'),false);
             } else {
 
@@ -61,7 +59,6 @@ export default class Timetable extends Component {
         })
             .catch(error => {
                 this.setState({loading: false})
-                console.log('student_id', Preference.get('user_id'))
                 console.log('onMyCourseTabResponseError:', error);
             });
     }
@@ -131,34 +128,21 @@ export default class Timetable extends Component {
                             textMonthFontSize: 16,
                             textDayHeaderFontSize: 13,
                         }}
-                        // Initially visible month. Default = Date()
                         current={this.state.selectedItem.start}
                         firstDay={1}
                         onDayPress={(day) => {
                             let _selectedItem = [];
                             this.setDays(moment(day.dateString).format('YYYY-MM-DD'),true);
-                            /* _selectedItem = this.state.listOfItems.find((item)=> {
-                                 let _date=item.start
-                                 _date=_date.split(" ");
-                                 console.log("SelectedDate="+_date[0]+"=="+day.dateString);
-                                 return _date == moment(day.dateString).format('YYYY-MM-DD')
-                             })*/
                             let allItems = this.state.listOfItems;
                             for (let i = 0; i < allItems.length; i++) {
 
                                 let item = allItems[i];
                                 let _date = item.start
                                 _date = _date.split(" ");
-                                console.log("SelectedDate=" + _date[0] + "==" + day.dateString);
                                 if (_date[0] == moment(day.dateString).format('YYYY-MM-DD')) {
-                                    console.log("SelectedDate=" + _date[0] + "==" + day.dateString);
                                     _selectedItem.push(item)
                                 }
                             }
-
-                            console.log("SelectedDates=" + JSON.stringify(_selectedItem));
-
-                            //if(_.isNil(_selectedItem)) _selectedItem = ''
                             this.setState({selectedItem: _selectedItem})
                         }}
                     />
@@ -190,14 +174,11 @@ export default class Timetable extends Component {
         let appointdate = day;
         if(selected)
         {
-
-            //this.setState({setDatesCalender:details});
             let allItems=this.state.listOfItems;
             for(let j=0;j<allItems.length;j++)
             {
                 let _date = allItems[j].start
                 _date = _date.split(" ");
-                console.log("SelectedDate=" + _date[0]);
                 details[`${_date[0]}`] =  {marked: true, dotColor: 'red',}
             }
             details[`${appointdate}`] = {selected: true, selectedColor: "#389CFE"}
@@ -208,7 +189,6 @@ export default class Timetable extends Component {
             {
                 let _date = allItems[j].start
                 _date = _date.split(" ");
-                console.log("SelectedDate=" + _date[0]);
                 details[`${_date[0]}`] =  {marked: true, dotColor: 'red',}
             }
         }

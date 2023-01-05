@@ -8,7 +8,6 @@ import {
     ScrollView,
     SafeAreaView, FlatList, Alert, Dimensions,
 } from 'react-native';
-// import Preference from 'react-native-preference';
 import * as colors from '../../../styles/colors';
 import * as sizes from '../../../styles/sizes';
 import commonStyles from '../../../styles/commonStyles';
@@ -49,7 +48,6 @@ export default class PointTransaction extends Component {
         }).then(response => response.json())
             .then(response => {
                 this.setState({loading: false})
-                console.log("refferalReward-->", "-" + JSON.stringify(response));
                 if (response.code == 200) {
                     this.setState({
                         allItems: response.data.point_history
@@ -60,7 +58,6 @@ export default class PointTransaction extends Component {
             })
             .catch(error => {
                 this.setState({loading: false})
-                console.log('student_id', Preference.get('user_id'))
                 console.log('onMyCourseTabResponseError:', error);
 
             });
@@ -174,7 +171,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         borderLeftWidth: 5,
         alignItems: 'center',
-        // justifyContent: 'center',
         width: '94%'
     },
 });
