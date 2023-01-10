@@ -3,11 +3,10 @@ import {
     View,
     Text,
     StyleSheet,
-    Dimensions,
     Image,
     SafeAreaView,
     TouchableOpacity, Platform,
-    Keyboard
+    Keyboard,
 } from 'react-native';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NavigationActions, StackActions } from "react-navigation";
@@ -20,6 +19,7 @@ import FloatingLabel from '../../../components/FloatingLabelInput';
 import Preference from 'react-native-preference';
 import { constants } from '../../../Utils/constants'
 import firebase from "react-native-firebase";
+import { checkNotifications, requestNotifications } from 'react-native-permissions';
 const resetActionToHome = StackActions.reset({
     index: 0,
     actions: [NavigationActions.navigate({ routeName: 'AppDrawerNavigator' })],
@@ -47,10 +47,26 @@ export default class Login extends Component {
             })
         }
         this.checkInternet();
-        this.checkPermission();
+        this.platformCheck()
     }
-
-
+    async platformCheck() {
+        if (Platform.OS == "android") {
+            checkNotifications().then(({ status, settings }) => {
+                if (status == "granted") {
+                    this.checkPermission();
+                }
+                else if (status == "denied") {
+                    requestNotifications(['alert', 'sound']).then(({ status, settings }) => {
+                        if (status == "granted") {
+                            this.checkPermission();
+                        }
+                    });
+                }
+            });
+        } else {
+            this.checkPermission();
+        }
+    }
     async checkPermission() {
         const enabled = await firebase.messaging().hasPermission();
         if (enabled) {
@@ -59,7 +75,6 @@ export default class Login extends Component {
             this.requestPermission();
         }
     }
-
     async getToken() {
         if (!fcmToken) {
             fcmToken = await firebase.messaging().getToken();
@@ -67,17 +82,18 @@ export default class Login extends Component {
             }
         }
     }
-
     async requestPermission() {
         try {
-            await firebase.messaging().requestPermission();
-            this.getToken();
+            const enabled = await firebase.messaging().requestPermission();
+            if (enabled) {
+                this.getToken();
+            } else {
+                alert("Error in finding FCM token")
+            }
         } catch (error) {
             console.log('permission rejected');
         }
     }
-
-
     checkInternet() {
         const subscribe = NetInfo.addEventListener(state => {
             this.setState({ isConnected: state.isConnected })

@@ -1,4 +1,4 @@
-platform :ios, '9.0'
+platform :ios, '10.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 target 'PMCStudent' do
@@ -42,11 +42,11 @@ target 'PMCStudent' do
   pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
   permissions_path = '../node_modules/react-native-permissions/ios'
   
-  pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"
-  pod 'Permission-MediaLibrary', :path => "#{permissions_path}/MediaLibrary.podspec"
-  pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone.podspec"
-  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary.podspec"
-  pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications.podspec"
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera/Permission-Camera.podspec"
+  pod 'Permission-MediaLibrary', :path => "#{permissions_path}/MediaLibrary/Permission-MediaLibrary.podspec"
+  pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone/Permission-Microphone.podspec"
+  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary/Permission-PhotoLibrary.podspec"
+  pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications/Permission-Notifications.podspec"
   pod 'react-native-cameraroll', :path => '../node_modules/@react-native-community/cameraroll'
 
   target 'PMCStudentTests' do
