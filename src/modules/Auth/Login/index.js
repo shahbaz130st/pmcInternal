@@ -18,7 +18,8 @@ import ProgressBar from '../../../components/ProgressBar';
 import FloatingLabel from '../../../components/FloatingLabelInput';
 import Preference from 'react-native-preference';
 import { constants } from '../../../Utils/constants'
-import firebase from "react-native-firebase";
+// import firebase from "react-native-firebase";
+import messaging from '@react-native-firebase/messaging';
 import { checkNotifications, requestNotifications } from 'react-native-permissions';
 const resetActionToHome = StackActions.reset({
     index: 0,
@@ -49,50 +50,44 @@ export default class Login extends Component {
         this.checkInternet();
         this.platformCheck()
     }
-    async platformCheck() {
+
+    platformCheck = async () => {
         if (Platform.OS == "android") {
             checkNotifications().then(({ status, settings }) => {
                 if (status == "granted") {
-                    this.checkPermission();
+                    this.messagingRequest()
                 }
                 else if (status == "denied") {
                     requestNotifications(['alert', 'sound']).then(({ status, settings }) => {
                         if (status == "granted") {
-                            this.checkPermission();
+                            this.messagingRequest()
                         }
                     });
                 }
             });
         } else {
-            this.checkPermission();
+            this.messagingRequest()
         }
     }
-    async checkPermission() {
-        const enabled = await firebase.messaging().hasPermission();
+    messagingRequest = async () => {
+        const authStatus = await messaging().requestPermission();
+        const enabled =
+            authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+            authStatus === messaging.AuthorizationStatus.PROVISIONAL;
         if (enabled) {
-            this.getToken();
-        } else {
-            this.requestPermission();
+            this.onAppBootstrap()
         }
     }
-    async getToken() {
-        if (!fcmToken) {
-            fcmToken = await firebase.messaging().getToken();
-            if (fcmToken) {
-            }
-        }
-    }
-    async requestPermission() {
-        try {
-            const enabled = await firebase.messaging().requestPermission();
-            if (enabled) {
-                this.getToken();
-            } else {
-                alert("Error in finding FCM token")
-            }
-        } catch (error) {
-            console.log('permission rejected');
-        }
+
+    onAppBootstrap = async () => {
+        // Register the device with FCM
+        // await messaging().registerDeviceForRemoteMessages();
+        // Get the token
+        fcmToken = await messaging().getToken();
+        // Save the token
+        console.log("fcmToken", "_---------------------------------->" + fcmToken);
+        // await AsyncStorage.setItem('fcmToken', token);
+        //await postToApi('/users/1234/tokens', { token });
     }
     checkInternet() {
         const subscribe = NetInfo.addEventListener(state => {

@@ -1,13 +1,11 @@
-platform :ios, '10.0'
+platform :ios, '11.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 target 'PMCStudent' do
   # Pods for PMCStudent
-  pod 'Firebase/Core', '~> 6.13.0'
-  pod 'Firebase/Messaging', '~> 6.13.0'
-  
-  pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
   pod 'React-RCTPushNotification', :path => '../node_modules/react-native/Libraries/PushNotificationIOS'
+  pod 'GoogleUtilities', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
   
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
